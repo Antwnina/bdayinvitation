@@ -5,13 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>You're Invited!</title>
     <style>
-        :root {
-            --bg-color: #232323;
-            --text-color: #ffda03;
-            --accent-color: #e6be400;
-            --btn-color: #e6be400;
-        }
-
+        /* GLOBAL RESET */
         * {
             box-sizing: border-box;
             margin: 0;
@@ -20,22 +14,21 @@
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-color);
+            background-color: #f7f3f0; /* Default background */
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            text-align: center;
-            padding: 20px;
             overflow-x: hidden;
         }
 
-        /* Screen Base Configurations */
+        /* BASE SCREEN LAYOUT */
         .screen {
             position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
-            max-width: 400px;
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -43,19 +36,58 @@
             transition: opacity 0.6s ease, transform 0.6s ease;
         }
 
-        /* Welcome Screen Layout */
+        .screen-content {
+            width: 100%;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hidden {
+            opacity: 0;
+            transform: scale(0.95);
+            pointer-events: none;
+        }
+
+        .visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        /* ==========================================
+           1. WELCOME SCREEN STYLES (DARK THEME)
+           ========================================== */
         #welcome-screen {
+            background-color: #262626; /* Deep dark background */
             cursor: pointer;
-            height: 100vh;
-            position: absolute;
             overflow: hidden;
             justify-content: space-between; 
             padding: 60px 20px;            
         }
 
-        /* 🌟 THE TWEAK: Lowers the title down into the screen slightly */
+        /* Scoped solely to Welcome Screen elements */
         #welcome-screen h1 {
-            margin-top: 30px; 
+            font-size: 2.5rem;
+            color: #ffff00; /* Vibrant yellow headline */
+            line-height: 1.2;
+            margin-top: 35px;
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 10px rgba(255, 255, 0, 0.2);
+        }
+
+        #welcome-screen p {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #ffff00; /* Golden paragraph text */
+            margin-bottom: 20px;
+        }
+
+        #welcome-screen .tap-hint {
+            font-size: 0.9rem;
+            color: #aaaaaa;
+            margin-top: 10px;
+            font-weight: bold;
+            animation: pulse 1.5s infinite;
         }
 
         /* Background GIF configuration layer */
@@ -70,61 +102,68 @@
             background-size: contain;     
             background-position: center;  
             background-repeat: no-repeat;
-            opacity: 0.55;                
-            z-index: -1;                  
+            opacity: 0.35;                
+            z-index: 0;                  
         }
 
-        /* Bottom text grouping wrapper */
+        /* Ensure text containers float above background layer */
+        #welcome-screen .screen-content {
+            z-index: 1;
+            height: 100%;
+            justify-content: space-between;
+            flex-grow: 1;
+        }
+
         .welcome-bottom-group {
             width: 100%;
             display: flex;
             flex-direction: column;
             align-items: center;
-			/* 🌟 THE TWEAK: Lifts the bottom group up away from the screen edge */
-            margin-bottom: 20px;
+            margin-bottom: 35px; 
         }
 
-        .hidden {
-            opacity: 0;
-            transform: scale(0.95);
-            pointer-events: none;
+
+        /* ==========================================
+           2. DETAILS SCREEN STYLES (LIGHT THEME)
+           ========================================== */
+        #details-screen {
+            background-color: #f7f3f0; /* Warm light beige background */
+            padding: 40px 20px;
+            justify-content: center;
         }
 
-        .visible {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        /* Typography Formatting Rules */
-        h1 {
+        /* Scoped solely to Details Screen elements */
+        #details-screen h1 {
             font-size: 2.5rem;
             margin-bottom: 15px;
-            color: var(--accent-color);
+            color: #d4a373; /* Smooth caramel accent tone */
             line-height: 1.2;
-            text-shadow: 0 2px 4px rgba(255, 255, 255, 0.7); 
+            text-shadow: none; /* Clears dark mode glow */
         }
 
-        p {
+        #details-screen p {
             font-size: 1.1rem;
             line-height: 1.6;
             margin-bottom: 20px;
+            color: #333333; /* Readable dark slate text */
         }
 
-        .tap-hint {
-            font-size: 0.9rem;
-            color: #aaaaaa;
-            margin-top: 10px;
+        #details-screen strong {
+            color: #111111;
+        }
+
+        #details-screen a {
+            color: #333333;
             font-weight: bold;
-            animation: pulse 1.5s infinite;
         }
 
-        /* UI Action Buttons */
-        .btn {
+        /* UI Action Buttons (Details Only) */
+        #details-screen .btn {
             display: block;
             width: 100%;
             padding: 15px;
             margin: 10px 0;
-            background-color: var(--btn-color);
+            background-color: #faedcd; /* Light pastel almond button */
             color: #553c24;
             text-decoration: none;
             border-radius: 30px;
@@ -133,22 +172,24 @@
             transition: transform 0.2s;
         }
 
-        .btn:active {
+        #details-screen .btn:active {
             transform: scale(0.98);
         }
 
-        .gift-section {
+        #details-screen .gift-section {
             margin-top: 30px;
             padding-top: 20px;
             border-top: 1px solid #e0dcd8;
             width: 100%;
         }
 
-        #details-screen {
-            padding: 40px 20px;
-            justify-content: center;
+        #details-screen .gift-section h3 {
+            color: #d4a373;
+            margin-bottom: 5px;
         }
 
+
+        /* ANIMATION CONSTANTS */
         @keyframes pulse {
             0% { opacity: 0.4; }
             50% { opacity: 1; }
@@ -158,41 +199,45 @@
 </head>
 <body>
 
-    <!-- SCREEN 1: WELCOME SCREEN -->
     <div id="welcome-screen" class="screen hidden" onclick="revealDetails()">
-        <h1>Pokémon<br>I choose YOU...</h1>
-        
-        <div class="welcome-bottom-group">
-            <p>✨ to celebrate another trip around the sun, and you need to be there.</p>
-            <div class="tap-hint">Tap anywhere to open the invite</div>
+        <div class="screen-content">
+            <h1>Pokémon<br>I choose YOU...</h1>
+            
+            <div class="welcome-bottom-group">
+                <p>✨ to celebrate another trip around the sun, and you need to be there.</p>
+                <div class="tap-hint">Tap anywhere to open the invite</div>
+            </div>
         </div>
     </div>
 
-    <!-- SCREEN 2: DETAILS SCREEN -->
     <div id="details-screen" class="screen hidden">
-        <h1>It's My Birthday! 🎂</h1>
-        <p><strong>When:</strong> Saturday, August 1st at 20:00</p>
-        <p><strong>📍 Where:</strong> <a href="https://maps.app.goo.gl/mZao9gLzEq3bwSTM8" target="_blank" style="color: var(--text-color); font-weight: bold;">My Home</a></p>
-        
-        <a href="https://calndr.link" target="_blank" class="btn">Save the Date 🗓️</a>
+        <div class="screen-content">
+            <h1>It's My Birthday! 🎂</h1>
+            <p><strong>When:</strong> Saturday, August 1st at 20:00</p>
+            <p><strong>📍 Where:</strong> <a href="https://maps.app.goo.gl/mZao9gLzEq3bwSTM8" target="_blank">My Home</a></p>
+            
+            <a href="https://calndr.link" target="_blank" class="btn">Save the Date 🗓️</a>
 
-        <div class="gift-section">
-            <h3>Your presence is enough! 🎁</h3>
-            <p style="font-size: 0.95rem; color: #666; margin-top: 5px;">
-            	But if you wish to give a gift, you can bring one along, or contribute for a voucher from Public Stores below:
-            </p>
-            <a href="https://revolut.me/antonikl7x" target="_blank" class="btn" style="background-color: #0075eb; color: white;">
-                🎁 Voucher 🎁
-            </a>
+            <div class="gift-section">
+                <h3>Gifts 🎁</h3>
+                <p style="font-size: 0.95rem; color: #666; margin-top: 5px;">
+                    Your presence is enough! But if you wish to give a gift, you can bring one along, or contribute for a voucher at Public Stores below:
+                </p>
+                <a href="https://revolut.me/antonikl7x" target="_blank" class="btn" style="background-color: #0075eb; color: white;">
+                    🎁 Voucher 🎁
+                </a>
+            </div>
         </div>
     </div>
 
     <script>
+        // Reveal welcome layout smoothly
         setTimeout(() => {
             document.getElementById('welcome-screen').classList.remove('hidden');
             document.getElementById('welcome-screen').classList.add('visible');
         }, 1000);
 
+        // Core transition navigation handler
         function revealDetails() {
             const welcome = document.getElementById('welcome-screen');
             const details = document.getElementById('details-screen');
