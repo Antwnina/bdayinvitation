@@ -14,7 +14,7 @@
         }
 
         body {
-            background-color: #f7f3f0; /* Default background */
+            background-color: #f7f3f0; 
             display: flex;
             justify-content: center;
             align-items: center;
@@ -59,35 +59,42 @@
            1. WELCOME SCREEN STYLES (DARK THEME)
            ========================================== */
         #welcome-screen {
-            background-color: #262626; /* Deep dark background */
+            background-color: #262626; 
             cursor: pointer;
             overflow: hidden;
             justify-content: space-between; 
             padding: 60px 20px;            
         }
 
-        /* Scoped solely to Welcome Screen elements */
+        /* 🌟 FIXED: Multi-layered heavy glow effects restored */
         #welcome-screen h1 {
             font-size: 2.5rem;
-            color: #ffff00; /* Vibrant yellow headline */
+            color: #ffff00; 
             line-height: 1.2;
             margin-top: 35px;
-            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.8), 0 0 10px rgba(255, 255, 0, 0.2);
+            /* Layer 1: Dark outline contrast | Layer 2: White core glow | Layer 3: Broad yellow aura */
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9), 
+                         0 0 12px rgba(255, 255, 255, 0.9), 
+                         0 0 25px rgba(255, 255, 0, 0.7);
         }
 
         #welcome-screen p {
             font-size: 1.1rem;
             line-height: 1.6;
-            color: #ffff00; /* Golden paragraph text */
+            color: #ffff00; 
             margin-bottom: 20px;
+            /* Added a matching clean shadow layer for readability against the GIF */
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9),
+                         0 0 8px rgba(255, 255, 255, 0.5);
         }
 
         #welcome-screen .tap-hint {
             font-size: 0.9rem;
-            color: #aaaaaa;
+            color: #ffffff;
             margin-top: 10px;
             font-weight: bold;
             animation: pulse 1.5s infinite;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9);
         }
 
         /* Background GIF configuration layer */
@@ -106,7 +113,6 @@
             z-index: 0;                  
         }
 
-        /* Ensure text containers float above background layer */
         #welcome-screen .screen-content {
             z-index: 1;
             height: 100%;
@@ -127,25 +133,24 @@
            2. DETAILS SCREEN STYLES (LIGHT THEME)
            ========================================== */
         #details-screen {
-            background-color: #f7f3f0; /* Warm light beige background */
+            background-color: #f7f3f0; 
             padding: 40px 20px;
             justify-content: center;
         }
 
-        /* Scoped solely to Details Screen elements */
         #details-screen h1 {
             font-size: 2.5rem;
             margin-bottom: 15px;
-            color: #d4a373; /* Smooth caramel accent tone */
+            color: #d4a373; 
             line-height: 1.2;
-            text-shadow: none; /* Clears dark mode glow */
+            text-shadow: none; /* Safely isolated: stays perfectly clean and matte */
         }
 
         #details-screen p {
             font-size: 1.1rem;
             line-height: 1.6;
             margin-bottom: 20px;
-            color: #333333; /* Readable dark slate text */
+            color: #333333; 
         }
 
         #details-screen strong {
@@ -157,13 +162,12 @@
             font-weight: bold;
         }
 
-        /* UI Action Buttons (Details Only) */
         #details-screen .btn {
             display: block;
             width: 100%;
             padding: 15px;
             margin: 10px 0;
-            background-color: #faedcd; /* Light pastel almond button */
+            background-color: #faedcd; 
             color: #553c24;
             text-decoration: none;
             border-radius: 30px;
@@ -188,7 +192,6 @@
             margin-bottom: 5px;
         }
 
-
         /* ANIMATION CONSTANTS */
         @keyframes pulse {
             0% { opacity: 0.4; }
@@ -199,6 +202,7 @@
 </head>
 <body>
 
+    <!-- SCREEN 1: WELCOME SCREEN (DARK THEME) -->
     <div id="welcome-screen" class="screen hidden" onclick="revealDetails()">
         <div class="screen-content">
             <h1>Pokémon<br>I choose YOU...</h1>
@@ -210,6 +214,7 @@
         </div>
     </div>
 
+    <!-- SCREEN 2: DETAILS SCREEN (LIGHT THEME) -->
     <div id="details-screen" class="screen hidden">
         <div class="screen-content">
             <h1>It's My Birthday! 🎂</h1>
@@ -231,13 +236,11 @@
     </div>
 
     <script>
-        // Reveal welcome layout smoothly
         setTimeout(() => {
             document.getElementById('welcome-screen').classList.remove('hidden');
             document.getElementById('welcome-screen').classList.add('visible');
         }, 1000);
 
-        // Core transition navigation handler
         function revealDetails() {
             const welcome = document.getElementById('welcome-screen');
             const details = document.getElementById('details-screen');
