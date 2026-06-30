@@ -321,6 +321,28 @@
             document.getElementById('welcome-screen').classList.add('visible');
         }, 1000);
 
+        // 🌟 FIXED: Removed old automatic welcome-screen timeout timer
+
+        // 🌟 FIXED: Added missing transition function to switch screens on click and start music
+        function startExperience() {
+            const startScreen = document.getElementById('start-screen');
+            const welcomeScreen = document.getElementById('welcome-screen');
+
+            // Plays music loops the exact second they click the start screen
+            const music = document.getElementById('bg-music');
+            music.play().catch(error => console.log("Playback prevented by browser settings:", error));
+
+            startScreen.style.opacity = '0';
+            setTimeout(() => {
+                startScreen.style.display = 'none';
+                welcomeScreen.style.display = 'flex';
+                setTimeout(() => {
+                    welcomeScreen.classList.remove('hidden');
+                    welcomeScreen.classList.add('visible');
+                }, 50);
+            }, 600);
+        }
+        
         function revealDetails() {
             const welcome = document.getElementById('welcome-screen');
             const details = document.getElementById('details-screen');
