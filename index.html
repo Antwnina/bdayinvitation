@@ -59,6 +59,47 @@
         }
 
         /* ==========================================
+           0. NEW START SCREEN STYLES
+           ========================================== */
+        #start-screen {
+            background-color: #262626;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .pokeball-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            outline: none;
+            padding: 0;
+            width: 150px;
+            height: 150px;
+            transition: transform 0.2s ease;
+            animation: bounce 2s infinite;
+        }
+
+        .pokeball-btn img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .pokeball-btn:active {
+            transform: scale(0.9);
+        }
+
+        .start-text {
+            color: #ffffff;
+            font-size: 1.2rem;
+            margin-top: 25px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+        
+        /* ==========================================
            1. WELCOME SCREEN STYLES (DARK THEME)
            ========================================== */
         #welcome-screen {
@@ -219,6 +260,15 @@
 </head>
 <body>
 
+    <div id="start-screen" class="screen visible">
+        <div class="screen-content">
+            <button class="pokeball-btn" onclick="startExperience()">
+                <img src="pokeBall" alt="Play Music and Enter">
+            </button>
+            <div class="start-text">Tap to enter</div>
+        </div>
+    </div>
+    
     <div id="welcome-screen" class="screen hidden" onclick="revealDetails()">
         <div class="screen-content">
             <h1>Pokémon<br>I choose YOU...</h1>
