@@ -1,3 +1,10 @@
+This happens because your content and your background GIF are fighting for the same layer space. Even though you set the `opacity: 0.35` on the `#details-screen::before` background layer, the main content needs an explicit instruction to float *above* that background.
+
+By adding `position: relative;` and `z-index: 1;` to your `.screen-content` container, it forces all of your text and buttons to the very front at 100% opacity, leaving only the GIF faded in the back.
+
+Here is your corrected code:
+
+```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,6 +49,9 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            /* 🌟 FIXED: This pulls all your text and buttons completely to the front */
+            position: relative; 
+            z-index: 1;         
         }
 
         .hidden {
@@ -66,13 +76,11 @@
             padding: 60px 20px;            
         }
 
-        /* 🌟 FIXED: Multi-layered heavy glow effects restored */
         #welcome-screen h1 {
             font-size: 2.5rem;
             color: #ffff00; 
             line-height: 1.2;
             margin-top: 35px;
-            /* Layer 1: Dark outline contrast | Layer 2: White core glow | Layer 3: Broad yellow aura */
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9), 
                          0 0 12px rgba(255, 255, 255, 0.9), 
                          0 0 25px rgba(255, 255, 0, 0.7);
@@ -83,7 +91,6 @@
             line-height: 1.6;
             color: #ffff00; 
             margin-bottom: 20px;
-            /* Added a matching clean shadow layer for readability against the GIF */
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9),
                          0 0 8px rgba(255, 255, 255, 0.5);
         }
@@ -114,7 +121,6 @@
         }
 
         #welcome-screen .screen-content {
-            z-index: 1;
             height: 100%;
             justify-content: space-between;
             flex-grow: 1;
@@ -147,7 +153,6 @@
             width: 100%;
             height: 100%;
             background-image: url('squirtleSquad.gif');
-            /*background-size: contain;  */
             background-size: cover;
             background-position: center;  
             background-repeat: no-repeat;
@@ -160,7 +165,6 @@
             margin-bottom: 15px;
             color: #FFB81C; 
             line-height: 1.2;
-            text-shadow: none; /* Safely isolated: stays perfectly clean and matte */
             text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9), 
                          0 0 12px rgba(255, 255, 255, 0.9), 
                          0 0 25px rgba(255, 255, 0, 0.7);
@@ -222,7 +226,6 @@
 </head>
 <body>
 
-    <!-- SCREEN 1: WELCOME SCREEN (DARK THEME) -->
     <div id="welcome-screen" class="screen hidden" onclick="revealDetails()">
         <div class="screen-content">
             <h1>Pokémon<br>I choose YOU...</h1>
@@ -234,7 +237,6 @@
         </div>
     </div>
 
-    <!-- SCREEN 2: DETAILS SCREEN (LIGHT THEME) -->
     <div id="details-screen" class="screen hidden">
         <div class="screen-content">
             <h1>It's My Birthday! 🎂</h1>
@@ -278,3 +280,5 @@
     </script>
 </body>
 </html>
+
+```
