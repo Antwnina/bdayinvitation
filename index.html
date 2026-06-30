@@ -138,6 +138,22 @@
             justify-content: center;
         }
 
+        /* Background GIF configuration layer */
+        #details-screen::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('squirtleSquad.gif');
+            background-size: contain;     
+            background-position: center;  
+            background-repeat: no-repeat;
+            opacity: 0.35;                
+            z-index: 0;                  
+        }
+
         #details-screen h1 {
             font-size: 2.5rem;
             margin-bottom: 15px;
