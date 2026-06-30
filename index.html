@@ -250,6 +250,11 @@
         </div>
     </div>
 
+    <!-- BACKGROUND AUDIO -->
+    <audio id="bg-music" loop>
+        <source src="PokémonThemeSong.mp3" type="audio/mpeg">
+    </audio>
+
     <script>
         setTimeout(() => {
             document.getElementById('welcome-screen').classList.remove('hidden');
@@ -259,6 +264,10 @@
         function revealDetails() {
             const welcome = document.getElementById('welcome-screen');
             const details = document.getElementById('details-screen');
+
+            // Plays music loops right as the user hits the open prompt
+            const music = document.getElementById('bg-music');
+            music.play().catch(error => console.log("Playback prevented by browser settings:", error));
 
             welcome.style.opacity = '0';
             setTimeout(() => {
