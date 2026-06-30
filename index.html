@@ -316,13 +316,13 @@
     </audio>
 
     <script>
+        // 🌟 FIXED: Removed old automatic welcome-screen timeout timer
+        /*
         setTimeout(() => {
             document.getElementById('welcome-screen').classList.remove('hidden');
             document.getElementById('welcome-screen').classList.add('visible');
         }, 1000);
-
-        // 🌟 FIXED: Removed old automatic welcome-screen timeout timer
-
+*/
         // 🌟 FIXED: Added missing transition function to switch screens on click and start music
         function startExperience() {
             const startScreen = document.getElementById('start-screen');
